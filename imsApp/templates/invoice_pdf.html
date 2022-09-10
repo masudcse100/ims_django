@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Invoice - {{invoice.customer}}</title>
+</head>
+<body>
+    <h1 style="text-align:center;font-size:2.5rem;text-decoration: underline;color:red;">Stock Management System</h1>
+    <h1 style="display:inline;">Customer Name : {{invoice.customer}}</h1>
+    <p style="font-size:13px;">Date: {{invoice.date_created}}</p> <br>
+    
+
+
+    <table>
+        <tr style="border-bottom:1px solid black;">
+            <th><h1>Transaction ID</h1></th>
+            {% comment %} <th><h1>Customer Name</h1></th> {% endcomment %}
+            <th><h1>Total Order</h1></th>
+            <th><h1>Price</h1></th>
+        </tr><br>
+        <tr style="text-align:center;padding-top:1rem;">
+            <td><p style="font-size:14px;">{{invoice.transaction}}</p></td>
+            {% comment %} <td><p>{{invoice.customer}}</p></td> {% endcomment %}
+            <td><p style="font-size:13px;">{{invoice.item_count|floatformat:0}}</p></td>
+            <td><p style="font-size:13px;">{{invoice.total|floatformat:2}} Taka</p></td>
+        </tr>
+    </table>
+</body>
+</html>
