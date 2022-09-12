@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from ims_django.settings import MEDIA_ROOT, MEDIA_URL
 import json
+from django.contrib.auth import get_user_model
 
 
 
@@ -104,23 +105,25 @@ def home(request):
     context['sales'] = Invoice.objects.count()
     return render(request, 'home.html',context)
 
+@login_required
 def registerUser(request):
-    user = request.user
-    if user.is_authenticated:
-        return redirect('home-page')
-    context['page_title'] = "Register User"
+    # user = request.user
+    # if user.is_authenticated:
+    #     return redirect('home-page')
+    context['page_title'] = "Add New User"
     if request.method == 'POST':
         data = request.POST
         form = UserRegistration(data)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            pwd = form.cleaned_data.get('password1')
-            loginUser = authenticate(username= username, password = pwd)
-            login(request, loginUser)
-            return redirect('home-page')
+            # username = form.cleaned_data.get('username')
+            # pwd = form.cleaned_data.get('password1')
+            # loginUser = authenticate(username= username, password = pwd)
+            # login(request, loginUser)
+            return redirect('profile')
         else:
-            context['reg_form'] = form
+            form = UserRegistration()
+            # context['reg_form'] = form
 
     return render(request,'register.html',context)
 
@@ -167,6 +170,11 @@ def profile(request):
     context['page_title'] = 'Profile'
     return render(request, 'profile.html',context)
 
+def allUsers(request):
+    User = get_user_model()
+    users = User.objects.all()
+    context['users'] = users
+    return render(request, 'all-users.html',context)
 
 # Category
 @login_required

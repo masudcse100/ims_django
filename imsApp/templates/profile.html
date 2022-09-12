@@ -4,8 +4,22 @@
         <div class="col-lg-7 col-md-10 col-sm-12 col-xs-12">
             <div class="card shadow rounded-0">
                 <div class="card-header">
-                    <div class="h5 card-title fw-bold">My Profile</div>
-                    <span>Usertype : Administrator</span>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="h5 card-title fw-bold">My Profile</div>
+                        </div>
+                        <div class="col-6">
+                            {% if user.is_superuser %}
+                            <button class="btn btn-info offset-6"  ><a style="color:#fff;" href="{% url 'all-user' %}">All users</a></button>{% endif %}
+                        </div>
+                    </div>
+                    <p style="font-weight: 600;
+                    font-size: 15px;">Usertype : 
+                    {% if user.is_superuser %}
+                        <span>Administrator</span>
+                        {% else %}
+                        <span>Staff</span>
+                        {% endif %}</p>
                 </div>
                 <div class="card-body">
                     <div class="container-fluid">
@@ -17,11 +31,15 @@
                                     <dt class="text-muted">Email</dt>
                                     <dd class="ps-4">{{ user.email }}</dd>
                                     <dt class="text-muted">Username</dt>
-                                    <dd class="ps-4">{{ user.username }}</dd>
+                                    <dd class="ps-4">@{{ user.username }}</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
+                    {% comment %} {% for user in users %} {% endcomment %}
+                        {% comment %} <p>{{user}}</p> {% endcomment %}
+                        
+                    {% comment %} {% endfor %} {% endcomment %}
                 </div>
                 <div class="card-footer">
                     <div class="d-flex w-100 text-end justify-content-end">
